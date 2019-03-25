@@ -143,7 +143,7 @@ namespace WorkGenerator.Areas.Admin.Controllers
                     var files = HttpContext.Request.Form.Files;
 
                     var JobFromDb = await _context.Job.FindAsync(job.Id);
-                    
+
                     if (files.Count > 0)
                     {
                         //New Image has been uploaded
@@ -159,7 +159,7 @@ namespace WorkGenerator.Areas.Admin.Controllers
                         }
 
                         //we will upload the new file
-                        using (var filesStream = new FileStream(Path.Combine(uploads, job.Id + extension_new), FileMode.Create))
+                        using (var filesStream = new FileStream(Path.Combine(uploads,job.Id + extension_new), FileMode.Create))
                         {
                             files[0].CopyTo(filesStream);
                         }
