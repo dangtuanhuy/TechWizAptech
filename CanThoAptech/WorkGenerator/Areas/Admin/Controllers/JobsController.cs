@@ -138,8 +138,47 @@ namespace WorkGenerator.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(job);
+
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    var files = HttpContext.Request.Form.Files;
+
+                    var JobFromDb = await _context.Job.FindAsync(job.Id);
+                    
+                    if (files.Count > 0)
+                    {
+                        //New Image has been uploaded
+                        var uploads = Path.Combine(webRootPath, "images");
+                        var extension_new = Path.GetExtension(files[0].FileName);
+
+                        //Delete the original file
+                        var imagePath = Path.Combine(webRootPath, JobFromDb.Image.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+
+                        //we will upload the new file
+                        using (var filesStream = new FileStream(Path.Combine(uploads, job.Id + extension_new), FileMode.Create))
+                        {
+                            files[0].CopyTo(filesStream);
+                        }
+                        JobFromDb.Image = @"\images\" + job.Id + extension_new;
+                    }
+
+                    JobFromDb.Name = job.Name;
+                    JobFromDb.Salary = job.Salary;
+                    JobFromDb.Description = job.Description;
+                    JobFromDb.Others = job.Others;
+                    JobFromDb.Status = job.Status;
+                    JobFromDb.StatusEnable = job.StatusEnable;
+                    JobFromDb.Experience = job.Experience;
+                    JobFromDb.CategoryId = job.CategoryId;
+                    JobFromDb.JobDate = job.JobDate;
+                    
+
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

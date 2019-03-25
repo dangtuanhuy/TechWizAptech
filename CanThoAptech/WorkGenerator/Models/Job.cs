@@ -24,7 +24,6 @@ namespace WorkGenerator.Models
 
         [Display(Name = "Description Details")]
         [Column(TypeName = "ntext")]
-        [MaxLength]
         public string Description { get; set; }
 
         [Display(Name = "Status")]

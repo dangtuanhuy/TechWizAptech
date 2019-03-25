@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WorkGenerator.Models.Category>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<WorkGenerator.Models.Category>
 
 @{
     ViewData["Title"] = "Index";
@@ -35,17 +36,17 @@
                     @foreach (var item in Model)
                     {
 
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(m => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => item.Skill.Name)
-                        </td>
-                        <td style="width:150px">
-                            <partial name="_TableButtonPartial" model="item.Id" />
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => item.Skill.Name)
+                            </td>
+                            <td style="width:150px">
+                                <partial name="_TableButtonPartial" model="item.Id" />
+                            </td>
+                        </tr>
 
                     }
                 </tbody>
