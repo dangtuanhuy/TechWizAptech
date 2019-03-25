@@ -221,9 +221,20 @@ namespace WorkGenerator.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            string webRootPath = _hostingEnvironment.WebRootPath;
             var job = await _context.Job.FindAsync(id);
-            _context.Job.Remove(job);
-            await _context.SaveChangesAsync();
+            if(job !=null)
+            {
+                var imagePath = Path.Combine(webRootPath, job.Image.TrimStart('\\'));
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+                _context.Job.Remove(job);
+                await _context.SaveChangesAsync();
+            }
+            
             return RedirectToAction(nameof(Index));
         }
 
