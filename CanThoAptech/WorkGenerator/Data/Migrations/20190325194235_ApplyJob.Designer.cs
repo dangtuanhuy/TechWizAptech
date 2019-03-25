@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkGenerator.Data;
 
 namespace WorkGenerator.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190325194235_ApplyJob")]
+    partial class ApplyJob
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,31 +309,6 @@ namespace WorkGenerator.Data.Migrations
                     b.ToTable("Job");
                 });
 
-            modelBuilder.Entity("WorkGenerator.Models.JobApply", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ApplyDetailsId");
-
-                    b.Property<int>("JobId");
-
-                    b.Property<bool>("Status");
-
-                    b.Property<int>("TrainingId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplyDetailsId");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TrainingId");
-
-                    b.ToTable("JobApply");
-                });
-
             modelBuilder.Entity("WorkGenerator.Models.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -469,24 +446,6 @@ namespace WorkGenerator.Data.Migrations
                     b.HasOne("WorkGenerator.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.JobApply", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.AppliedDetails", "AppliedDetails")
-                        .WithMany()
-                        .HasForeignKey("ApplyDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WorkGenerator.Models.Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WorkGenerator.Models.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

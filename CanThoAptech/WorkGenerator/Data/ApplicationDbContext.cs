@@ -32,6 +32,6 @@ namespace WorkGenerator.Data
 
         public DbSet<AppliedDetails> AppliedDetails { get; set; }
 
-        public DbSet<ApplyJob> ApplyJob { get; set; }
+        public DbSet<JobApply> JobApply { get; set; }
     }
 }

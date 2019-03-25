@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 
 namespace WorkGenerator.Models
 {
-    public class ApplyJob
+    public class JobApply
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
         public int Id { get; set; }
+
+
         [Display(Name = "JobId")]
-        public string JobId { get; set; }
+        public int JobId { get; set; }
 
         [ForeignKey("JobId")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual Job Job { get; set; }
 
-      
+
         [Display(Name = "Apply DetailsIs")]
         public int ApplyDetailsId { get; set; }
 
         [ForeignKey("ApplyDetailsId")]
         public virtual AppliedDetails AppliedDetails { get; set; }
+
+
         public bool Status { get; set; }
 
         [Display(Name = "Training")]
