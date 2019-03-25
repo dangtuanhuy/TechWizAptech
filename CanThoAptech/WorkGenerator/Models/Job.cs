@@ -44,6 +44,9 @@ namespace WorkGenerator.Models
         public string Experience { get; set; }
         public enum ExperienceJob { OneYear = 0, TwoYears = 1, ThreeYears = 2, ThanThreeYears = 3 }
 
+        [Display(Name = "Others Experience")]
+        public string Others { get; set; }
+
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
