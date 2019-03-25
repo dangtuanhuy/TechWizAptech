@@ -38,11 +38,9 @@
                             <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item dropdown text-white-50">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.....</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager Job</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                <a class="dropdown-item" asp-action="Index" asp-controller="Category" asp-area="Customer">Category</a>
-                                <a class="dropdown-item" asp-action="Index" asp-controller="Job" asp-area="Customer">Job</a>
-                                <a class="dropdown-item" asp-action="Index" asp-controller="Skill" asp-area="Customer">Skill</a>
+                                @await Html.PartialAsync("../Menu/_menu.cshtml")
                             </div>
                         </li>
                     </ul>
