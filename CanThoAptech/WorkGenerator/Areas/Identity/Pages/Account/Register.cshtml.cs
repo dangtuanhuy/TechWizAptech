@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using WorkGenerator.Models;
 
 namespace WorkGenerator.Areas.Identity.Pages.Account
 {
@@ -54,6 +56,20 @@ namespace WorkGenerator.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            //JIO
+            [Display(Name = "Full Name")]
+            public string Name { get; set; }
+
+
+
+            [Display(Name = "Picture")]
+            public byte[] Avarta { get; set; }
+
+            [Display(Name = "Company Id")]
+            public int CompanyId { get; set; }
+
+            [ForeignKey("CompanyId")]
+            public virtual Company Company { get; set; }
         }
 
         public void OnGet(string returnUrl = null)

@@ -19,5 +19,19 @@ namespace WorkGenerator.Data
         public DbSet<Category> Category { get; set; }
 
         public DbSet<Job> Job { get; set; }
+        
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
+        public DbSet<Company> Company { get; set; }
+
+        public DbSet<Event> Event { get; set; }
+
+        public DbSet<UserEvent> UserEvent { get; set; }
+
+        public DbSet<Training> Training { get; set; }
+
+        public DbSet<AppliedDetails> AppliedDetails { get; set; }
+
+        public DbSet<ApplyJob> ApplyJob { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkGenerator.Data;
 
 namespace WorkGenerator.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190325144602_UserUD")]
+    partial class UserUD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,50 +191,6 @@ namespace WorkGenerator.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WorkGenerator.Models.AppliedDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AppliedDate");
-
-                    b.Property<string>("Information");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AppliedDetails");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.ApplyJob", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ApplyDetailsId");
-
-                    b.Property<string>("JobId");
-
-                    b.Property<bool>("Status");
-
-                    b.Property<int>("TrainingId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplyDetailsId");
-
-                    b.HasIndex("JobId");
-
-                    b.HasIndex("TrainingId");
-
-                    b.ToTable("ApplyJob");
-                });
-
             modelBuilder.Entity("WorkGenerator.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -250,50 +208,6 @@ namespace WorkGenerator.Data.Migrations
                     b.HasIndex("SkillId");
 
                     b.ToTable("Category");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<string>("Contact")
-                        .IsRequired();
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.Event", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<TimeSpan>("Hour");
-
-                    b.Property<string>("Information");
-
-                    b.Property<string>("TiTle")
-                        .IsRequired()
-                        .HasMaxLength(90);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("WorkGenerator.Models.Job", b =>
@@ -347,59 +261,13 @@ namespace WorkGenerator.Data.Migrations
                     b.ToTable("Skill");
                 });
 
-            modelBuilder.Entity("WorkGenerator.Models.Training", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<TimeSpan>("Hours");
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.Property<DateTime>("TrainingDate");
-
-                    b.Property<bool>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Training");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.UserEvent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventId");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserEvent");
-                });
-
             modelBuilder.Entity("WorkGenerator.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<byte[]>("Avarta");
 
-                    b.Property<int>("CompanyId");
-
                     b.Property<string>("Name");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -449,30 +317,6 @@ namespace WorkGenerator.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WorkGenerator.Models.AppliedDetails", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.ApplyJob", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.AppliedDetails", "AppliedDetails")
-                        .WithMany()
-                        .HasForeignKey("ApplyDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WorkGenerator.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("JobId");
-
-                    b.HasOne("WorkGenerator.Models.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("WorkGenerator.Models.Category", b =>
                 {
                     b.HasOne("WorkGenerator.Models.Skill", "Skill")
@@ -486,26 +330,6 @@ namespace WorkGenerator.Data.Migrations
                     b.HasOne("WorkGenerator.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.UserEvent", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WorkGenerator.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
