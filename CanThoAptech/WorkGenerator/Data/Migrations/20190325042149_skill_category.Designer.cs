@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkGenerator.Data;
 
 namespace WorkGenerator.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190325042149_skill_category")]
+    partial class skill_category
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,40 +205,6 @@ namespace WorkGenerator.Data.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("WorkGenerator.Models.Job", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("ntext");
-
-                    b.Property<string>("Experience");
-
-                    b.Property<string>("Image");
-
-                    b.Property<DateTime>("JobDate");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<double>("Salary");
-
-                    b.Property<bool>("Status");
-
-                    b.Property<DateTime>("StatusEnable");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Job");
-                });
-
             modelBuilder.Entity("WorkGenerator.Models.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -302,14 +270,6 @@ namespace WorkGenerator.Data.Migrations
                     b.HasOne("WorkGenerator.Models.Skill", "Skill")
                         .WithMany()
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WorkGenerator.Models.Job", b =>
-                {
-                    b.HasOne("WorkGenerator.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
